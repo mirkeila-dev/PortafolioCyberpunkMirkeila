@@ -1,0 +1,1421 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mirkeila Gomez | Portafolio Web</title>
+  <meta name="description" content="Portafolio profesional de Mirkeila Gomez, desarrolladora web en formación. Proyectos, tecnologías y contacto.">
+  <meta name="author" content="Mirkeila Gomez">
+  <meta name="theme-color" content="#07110d">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Fuente tecnológica -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- EmailJS: necesario para activar el envío real -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #07110d;
+      --surface: rgba(13, 27, 22, 0.92);
+      --surface-2: #10251c;
+      --text: #e7fff0;
+      --muted: #a4b9ac;
+      --green: #39ff88;
+      --green-dark: #14b85b;
+      --purple: #bd70ff;
+      --border: rgba(57, 255, 136, 0.24);
+      --shadow: 0 0 28px rgba(57, 255, 136, 0.09);
+      --nav: rgba(5, 15, 10, 0.88);
+    }
+
+    body.light-theme {
+      --bg: #f4f7f5;
+      --surface: rgba(255, 255, 255, 0.94);
+      --surface-2: #e8f4ec;
+      --text: #15251b;
+      --muted: #526459;
+      --green: #087f43;
+      --green-dark: #086b39;
+      --purple: #792bb4;
+      --border: rgba(8, 127, 67, 0.25);
+      --shadow: 0 5px 25px rgba(25, 70, 42, 0.09);
+      --nav: rgba(248, 255, 250, 0.93);
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      transition: background .3s, color .3s;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--purple);
+    }
+
+    button, input, textarea {
+      font: inherit;
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid var(--purple);
+      outline-offset: 3px;
+    }
+
+    #matrix {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      pointer-events: none;
+      opacity: .17;
+    }
+
+    .page-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse at top,
+        transparent 15%,
+        var(--bg) 105%
+      );
+      opacity: .55;
+    }
+
+    .navbar {
+      background: var(--nav);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+    }
+
+    .navbar-brand {
+      color: var(--green) !important;
+      font-family: "Orbitron", sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .navbar .nav-link {
+      color: var(--text);
+      font-size: .91rem;
+      transition: color .2s;
+    }
+
+    .navbar .nav-link:hover {
+      color: var(--green);
+    }
+
+    .navbar-toggler {
+      border-color: var(--border);
+    }
+
+    .navbar-toggler-icon {
+      filter: invert(1);
+    }
+
+    body.light-theme .navbar-toggler-icon {
+      filter: none;
+    }
+
+    .theme-btn {
+      color: var(--green);
+      background: transparent;
+      border: 1px solid var(--green);
+      border-radius: 30px;
+      padding: .5rem .85rem;
+    }
+
+    .theme-btn:hover {
+      background: var(--green);
+      color: var(--bg);
+    }
+
+    section {
+      padding: 90px 0;
+      scroll-margin-top: 75px;
+    }
+
+    .section-title {
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(1.55rem, 4vw, 2.35rem);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .section-title span {
+      color: var(--green);
+    }
+
+    .section-subtitle {
+      max-width: 700px;
+      margin: 0 auto 42px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      padding-top: 120px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      color: var(--green);
+      background: var(--surface);
+      font-size: .83rem;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(2.3rem, 6vw, 4.7rem);
+      font-weight: 800;
+      line-height: 1.15;
+      overflow-wrap: anywhere;
+    }
+
+    .hero h1 span {
+      color: var(--green);
+      text-shadow: 0 0 25px rgba(57, 255, 136, .18);
+    }
+
+    .hero h2 {
+      color: var(--purple);
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      margin: 20px 0;
+    }
+
+    .hero-description {
+      color: var(--muted);
+      line-height: 1.9;
+      max-width: 590px;
+    }
+
+    .btn-cyber {
+      display: inline-block;
+      background: var(--green);
+      color: #06110a;
+      font-weight: 800;
+      border: 1px solid var(--green);
+      border-radius: 5px;
+      padding: 12px 22px;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .btn-cyber:hover {
+      color: #06110a;
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px rgba(57, 255, 136, .25);
+    }
+
+    .btn-outline-cyber {
+      display: inline-block;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--purple);
+      border-radius: 5px;
+      padding: 12px 22px;
+      transition: .2s;
+    }
+
+    .btn-outline-cyber:hover {
+      background: var(--purple);
+      color: #170622;
+    }
+
+    .avatar-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px auto;
+      width: min(100%, 360px);
+      aspect-ratio: 1;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      inset: 3%;
+      border: 2px solid var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 35px rgba(57, 255, 136, .17),
+                  inset 0 0 35px rgba(57, 255, 136, .08);
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    .avatar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 76%;
+      height: 76%;
+      border-radius: 50%;
+      border: 1px solid var(--purple);
+      background:
+        radial-gradient(circle at 30% 20%, #243c30, transparent 55%),
+        linear-gradient(145deg, #10241b, #1d1231);
+      font-size: clamp(5rem, 15vw, 8rem);
+      box-shadow: var(--shadow);
+    }
+
+    body.light-theme .avatar {
+      background: linear-gradient(145deg, #d6f5e0, #ead8ff);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: .8; }
+      50% { transform: scale(1.04); opacity: 1; }
+    }
+
+    .tech-card,
+    .project-card,
+    .experience-card,
+    .video-card,
+    .contact-card {
+      height: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      transition: transform .25s, border-color .25s;
+      overflow: hidden;
+    }
+
+    .tech-card:hover,
+    .project-card:hover,
+    .experience-card:hover,
+    .video-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--green);
+    }
+
+    .tech-card {
+      padding: 25px 15px;
+      text-align: center;
+    }
+
+    .tech-card i {
+      font-size: 2.4rem;
+      color: var(--green);
+      margin-bottom: 15px;
+    }
+
+    .tech-card h3 {
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-content {
+      padding: 20px;
+    }
+
+    .project-content h3 {
+      font-size: 1.1rem;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .project-content p {
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.7;
+    }
+
+    .tag {
+      display: inline-block;
+      color: var(--purple);
+      border: 1px solid var(--border);
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: .75rem;
+      margin: 3px 3px 3px 0;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: var(--surface);
+      padding: 9px 17px;
+      border-radius: 25px;
+      margin: 4px;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--green);
+      color: #06110a;
+      border-color: var(--green);
+    }
+
+    .project-item[hidden] {
+      display: none !important;
+    }
+
+    .experience-card {
+      padding: 28px;
+      text-align: center;
+    }
+
+    .experience-card .experience-icon {
+      color: var(--purple);
+      font-size: 2.3rem;
+      margin-bottom: 18px;
+    }
+
+    .experience-card h3 {
+      color: var(--green);
+      font-size: 1.1rem;
+    }
+
+    .experience-card p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 0;
+    }
+
+    .video-card {
+      padding: 14px;
+    }
+
+    .video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 8px;
+      background: var(--surface-2);
+    }
+
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .video-card h3 {
+      font-size: 1rem;
+      margin: 16px 4px 8px;
+      color: var(--green);
+    }
+
+    .video-card p {
+      color: var(--muted);
+      font-size: .9rem;
+      margin: 0 4px 8px;
+    }
+
+    .contact-card {
+      padding: clamp(20px, 4vw, 38px);
+    }
+
+    .form-label {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .form-control {
+      color: var(--text);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 12px;
+    }
+
+    .form-control:focus {
+      color: var(--text);
+      background: var(--bg);
+      border-color: var(--green);
+      box-shadow: 0 0 0 .2rem rgba(57, 255, 136, .12);
+    }
+
+    .form-control::placeholder {
+      color: var(--muted);
+      opacity: .8;
+    }
+
+    .form-control option {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .btn-send {
+      display: block;
+      width: fit-content;
+      min-width: 190px;
+      margin: 24px auto 0;
+      background: dodgerblue;
+      color: white;
+      border: 0;
+      border-radius: 6px;
+      padding: 13px 24px;
+      font-weight: 700;
+    }
+
+    .btn-send:hover {
+      background: #0866c6;
+      color: white;
+    }
+
+    .btn-send:disabled {
+      opacity: .65;
+      cursor: wait;
+    }
+
+    #form-status {
+      text-align: center;
+      margin-top: 18px;
+      font-weight: 600;
+    }
+
+    footer {
+      background: var(--nav);
+      border-top: 1px solid var(--border);
+      padding: 35px 0 20px;
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 43px;
+      height: 43px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: var(--green);
+      font-size: 1.1rem;
+      transition: .2s;
+    }
+
+    .social-links a:hover {
+      color: var(--bg);
+      background: var(--green);
+      transform: translateY(-3px);
+    }
+
+    .back-top {
+      display: inline-block;
+      margin: 0 auto 22px;
+      border: 1px solid var(--green);
+      border-radius: 5px;
+      padding: 9px 15px;
+    }
+
+    .copyright {
+      color: var(--muted);
+      text-align: center;
+      font-size: .85rem;
+      margin-bottom: 0;
+    }
+
+    .text-muted-custom {
+      color: var(--muted);
+    }
+
+    @media (max-width: 767px) {
+      section {
+        padding: 70px 0;
+      }
+
+      .hero {
+        text-align: center;
+        min-height: auto;
+        padding-top: 120px;
+        padding-bottom: 60px;
+      }
+
+      .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .avatar-wrap {
+        width: min(75vw, 290px);
+        margin-top: 45px;
+      }
+
+      .project-card img {
+        height: 210px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="matrix" aria-hidden="true"></canvas>
+  <div class="page-overlay" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg fixed-top" aria-label="Navegación principal">
+    <div class="container">
+      <a class="navbar-brand" href="#inicio">MG<span aria-hidden="true">_</span>DEV</a>
+
+      <button class="navbar-toggler" type="button"
+        data-bs-toggle="collapse" data-bs-target="#menuPrincipal"
+        aria-controls="menuPrincipal" aria-expanded="false"
+        aria-label="Abrir menú de navegación">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="menuPrincipal">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#tecnologias">Tecnologías</a></li>
+          <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experiencia">Experiencia</a></li>
+          <li class="nav-item"><a class="nav-link" href="#videos">Videos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+            <button id="themeToggle" class="theme-btn"
+              type="button" aria-label="Cambiar tema de color">
+              <i class="fa-solid fa-sun" aria-hidden="true"></i>
+              <span id="themeText">Modo claro</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-7">
+            <span class="eyebrow">
+              <i class="fa-solid fa-terminal" aria-hidden="true"></i>
+              Bienvenido a mi universo digital
+            </span>
+
+            <h1>Hola, soy <span>Mirkeila Gomez</span></h1>
+            <h2>Desarrolladora Web en formación</h2>
+
+            <p class="hero-description">
+              Me interesa el desarrollo web, el diseño de interfaces y la
+              tecnología. Estoy construyendo mis habilidades mediante el
+              aprendizaje continuo y proyectos prácticos, combinando
+              creatividad, funcionalidad e inteligencia artificial.
+            </p>
+
+            <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center justify-content-lg-start">
+              <a class="btn-cyber" href="#proyectos">
+                <i class="fa-solid fa-code" aria-hidden="true"></i>
+                Ver proyectos
+              </a>
+              <a class="btn-outline-cyber" href="#contacto">
+                <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+                Contactarme
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="avatar-wrap" role="img"
+              aria-label="Avatar ilustrado de una desarrolladora en un estilo tecnológico">
+              <div class="avatar-ring"></div>
+              <div class="avatar" aria-hidden="true">🤖</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECNOLOGÍAS -->
+    <section id="tecnologias">
+      <div class="container">
+        <h2 class="section-title">Mi <span>Stack Tecnológico</span></h2>
+        <p class="section-subtitle">
+          Tecnologías y herramientas que forman parte de mi proceso de aprendizaje.
+        </p>
+
+        <div class="row g-3">
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="tech-card">
+              <i class="fa-brands fa-html5" aria-hidden="true"></i>
+              <h3>HTML5</h3>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="tech-card">
+              <i class="fa-brands fa-css3-alt" aria-hidden="true"></i>
+              <h3>CSS3</h3>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="tech-card">
+              <i class="fa-brands fa-js" aria-hidden="true"></i>
+              <h3>JavaScript</h3>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="tech-card">
+              <i class="fa-brands fa-bootstrap" aria-hidden="true"></i>
+              <h3>Bootstrap 5</h3>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="tech-card">
+              <i class="fa-brands fa-git-alt" aria-hidden="true"></i>
+              <h3>Git</h3>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="tech-card">
+              <i class="fa-brands fa-github" aria-hidden="true"></i>
+              <h3>GitHub</h3>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="tech-card">
+              <i class="fa-brands fa-figma" aria-hidden="true"></i>
+              <h3>Figma</h3>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="tech-card">
+              <i class="fa-solid fa-robot" aria-hidden="true"></i>
+              <h3>Inteligencia artificial</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section id="proyectos">
+      <div class="container">
+        <h2 class="section-title">Mis <span>Proyectos</span></h2>
+        <p class="section-subtitle">
+          Una selección de proyectos de práctica. Las descripciones y las
+          imágenes son ejemplos que deben sustituirse por los trabajos reales.
+        </p>
+
+        <div class="text-center mb-4" role="group" aria-label="Filtrar proyectos">
+          <button class="filter-btn active" type="button" data-filter="todos" aria-pressed="true">Todos</button>
+          <button class="filter-btn" type="button" data-filter="web" aria-pressed="false">Web</button>
+          <button class="filter-btn" type="button" data-filter="app" aria-pressed="false">App</button>
+          <button class="filter-btn" type="button" data-filter="diseno" aria-pressed="false">Diseño</button>
+        </div>
+
+        <div class="row g-4" id="projectGrid">
+          <!-- WEB: 3 proyectos -->
+          <div class="col-md-6 col-lg-4 project-item" data-category="web">
+            <article class="project-card">
+              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80"
+                alt="Panel de análisis y estadísticas en una pantalla" loading="lazy">
+              <div class="project-content">
+                <span class="tag">Web</span>
+                <h3>Portafolio profesional</h3>
+                <p>Sitio web adaptable para presentar habilidades, proyectos y contacto.</p>
+                <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span>
+                <div class="mt-3"><a href="#contacto">Consultar proyecto <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4 project-item" data-category="web">
+            <article class="project-card">
+              <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80"
+                alt="Persona realizando una compra en línea" loading="lazy">
+              <div class="project-content">
+                <span class="tag">Web</span>
+                <h3>Tienda virtual</h3>
+                <p>Propuesta de tienda con catálogo de productos y diseño adaptable.</p>
+                <span class="tag">Bootstrap</span><span class="tag">UI</span>
+                <div class="mt-3"><a href="#contacto">Consultar proyecto <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4 project-item" data-category="web">
+            <article class="project-card">
+              <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80"
+                alt="Espacio de trabajo con una computadora para programar" loading="lazy">
+              <div class="project-content">
+                <span class="tag">Web</span>
+                <h3>Blog tecnológico</h3>
+                <p>Diseño de una página de artículos para compartir información tecnológica.</p>
+                <span class="tag">HTML</span><span class="tag">CSS</span>
+                <div class="mt-3"><a href="#contacto">Consultar proyecto <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+              </div>
+            </article>
+          </div>
+
+          <!-- APP: 3 proyectos -->
+          <div class="col-md-6 col-lg-4 project-item" data-category="app">
+            <article class="project-card">
+              <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=900&q=80"
+                alt="Teléfono móvil que representa una aplicación" loading="lazy">
+              <div class="project-content">
+                <span class="tag">App</span>
+                <h3>App de tareas</h3>
+                <p>Concepto de aplicación para organizar tareas y actividades diarias.</p>
+                <span class="tag">JavaScript</span><span class="tag">UX</span>
+                <div class="mt-3"><a href="#contacto">Consultar proyecto <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4 project-item" data-category="app">
+            <article class="project-card">
+              <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=900&q=80"
+                alt="Diseño de aplicación móvil en un teléfono" loading="lazy">
+              <div class="project-content">
+                <span class="tag">App</span>
+                <h3>App de finanzas</h3>
+                <p>Prototipo para visualizar gastos, ingresos y objetivos de ahorro.</p>
+                <span class="tag">Prototipo</span><span class="tag">UI</span>
+                <div class="mt-3"><a href="#contacto">Consultar proyecto <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4 project-item" data-category="app">
+            <article class="project-card">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80"
+                alt="Dispositivos digitales utilizados para estudiar" loading="lazy">
+              <div class="project-content">
+                <span class="tag">App</span>
+                <h3>Asistente de estudio</h3>
+                <p>Idea de herramienta para organizar recursos y sesiones de estudio.</p>
+                <span class="tag">App</span><span class="tag">Productividad</span>
+                <div class="mt-3"><a href="#contacto">Consultar proyecto <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+              </div>
+            </article>
+          </div>
+
+          <!-- DISEÑO: 3 proyectos -->
+          <div class="col-md-6 col-lg-4 project-item" data-category="diseno">
+            <article class="project-card">
+              <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=900&q=80"
+                alt="Composición de diseño gráfico y materiales creativos" loading="lazy">
+              <div class="project-content">
+                <span class="tag">Diseño</span>
+                <h3>Identidad visual</h3>
+                <p>Propuesta conceptual de identidad gráfica para una marca digital.</p>
+                <span class="tag">Figma</span><span class="tag">Branding</span>
+                <div class="mt-3"><a href="#contacto">Consultar proyecto <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4 project-item" data-category="diseno">
+            <article class="project-card">
+              <img src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&w=900&q=80"
+                alt="Bocetos de diseño de interfaces" loading="lazy">
+              <div class="project-content">
+                <span class="tag">Diseño</span>
+                <h3>Prototipo de interfaz</h3>
+                <p>Propuesta de pantallas y navegación para una experiencia digital sencilla.</p>
+                <span class="tag">UI/UX</span><span class="tag">Figma</span>
+                <div class="mt-3"><a href="#contacto">Consultar proyecto <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4 project-item" data-category="diseno">
+            <article class="project-card">
+              <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=900&q=80"
+                alt="Computadora portátil con una página web de diseño" loading="lazy">
+              <div class="project-content">
+                <span class="tag">Diseño</span>
+                <h3>Landing page creativa</h3>
+                <p>Diseño de una página de presentación para un servicio o producto.</p>
+                <span class="tag">Diseño web</span><span class="tag">Responsive</span>
+                <div class="mt-3"><a href="#contacto">Consultar proyecto <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCIA Y FORMACIÓN -->
+    <section id="experiencia">
+      <div class="container">
+        <h2 class="section-title">Mi <span>Trayectoria</span></h2>
+        <p class="section-subtitle">
+          Formación, práctica y desarrollo continuo de habilidades tecnológicas.
+        </p>
+
+        <div class="row justify-content-center g-4">
+          <div class="col-md-6 col-lg-4">
+            <article class="experience-card">
+              <div class="experience-icon"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></div>
+              <h3>Formación académica</h3>
+              <p>Espacio para indicar los estudios, cursos y certificaciones reales relacionados con tecnología y desarrollo.</p>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="experience-card">
+              <div class="experience-icon"><i class="fa-solid fa-laptop-code" aria-hidden="true"></i></div>
+              <h3>Proyectos prácticos</h3>
+              <p>Práctica mediante la creación de páginas web, prototipos y ejercicios de programación.</p>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="experience-card">
+              <div class="experience-icon"><i class="fa-solid fa-brain" aria-hidden="true"></i></div>
+              <h3>Aprendizaje con IA</h3>
+              <p>Exploración de herramientas de inteligencia artificial como apoyo al aprendizaje y al desarrollo de soluciones digitales.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section id="videos">
+      <div class="container">
+        <h2 class="section-title">Zona <span>Multimedia</span></h2>
+        <p class="section-subtitle">
+          Recursos audiovisuales para complementar el aprendizaje de desarrollo web.
+          Los videos son ejemplos y pueden sustituirse por recursos apropiados.
+        </p>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe src="https://www.youtube-nocookie.com/embed/UB1O30fR-EE"
+                  title="Introducción al desarrollo web" loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+              <h3>💻 Fundamentos web</h3>
+              <p>Conoce los conceptos básicos de la creación de sitios web.</p>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe src="https://www.youtube-nocookie.com/embed/yfoY53QXEnI"
+                  title="Introducción a CSS" loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+              <h3>🎨 Diseño con CSS</h3>
+              <p>Aprende cómo los estilos dan forma y personalidad a una página.</p>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe src="https://www.youtube-nocookie.com/embed/hdI2bqOjy3c"
+                  title="Introducción a JavaScript" loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+              <h3>⚡ JavaScript interactivo</h3>
+              <p>Descubre cómo añadir interactividad y lógica a un sitio web.</p>
+            </article>
+          </div>
+        </div>
+
+        <!--
+          BLOQUES ADICIONALES DE VIDEOS: 9 ESPACIOS RESERVADOS.
+
+          Para agregar un video, copia una tarjeta .video-card dentro
+          de una columna Bootstrap y reemplaza VIDEO_ID por el ID real
+          del video de YouTube. Mantén el atributo title descriptivo.
+
+          VIDEO ADICIONAL 1
+          <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+            title="Video adicional 1" loading="lazy" allowfullscreen></iframe>
+
+          VIDEO ADICIONAL 2
+          <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+            title="Video adicional 2" loading="lazy" allowfullscreen></iframe>
+
+          VIDEO ADICIONAL 3
+          <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+            title="Video adicional 3" loading="lazy" allowfullscreen></iframe>
+
+          VIDEO ADICIONAL 4
+          <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+            title="Video adicional 4" loading="lazy" allowfullscreen></iframe>
+
+          VIDEO ADICIONAL 5
+          <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+            title="Video adicional 5" loading="lazy" allowfullscreen></iframe>
+
+          VIDEO ADICIONAL 6
+          <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+            title="Video adicional 6" loading="lazy" allowfullscreen></iframe>
+
+          VIDEO ADICIONAL 7
+          <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+            title="Video adicional 7" loading="lazy" allowfullscreen></iframe>
+
+          VIDEO ADICIONAL 8
+          <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+            title="Video adicional 8" loading="lazy" allowfullscreen></iframe>
+
+          VIDEO ADICIONAL 9
+          <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+            title="Video adicional 9" loading="lazy" allowfullscreen></iframe>
+        -->
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+      <div class="container">
+        <h2 class="section-title">Hablemos de <span>tu proyecto</span></h2>
+        <p class="section-subtitle">
+          Completa el formulario para enviar una consulta.
+        </p>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="contact-card">
+              <form id="contactForm">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="nombre" class="form-label">Nombre completo</label>
+                    <input class="form-control" type="text" id="nombre"
+                      name="from_name" placeholder="Escribe tu nombre"
+                      autocomplete="name" minlength="2" required>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <input class="form-control" type="email" id="email"
+                      name="reply_to" placeholder="nombre@ejemplo.com"
+                      autocomplete="email" required>
+                  </div>
+
+                  <div class="col-12">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input class="form-control" type="tel" id="telefono"
+                      name="phone" placeholder="Tu número de teléfono"
+                      autocomplete="tel" minlength="7" maxlength="20"
+                      pattern="[0-9+() .-]{7,20}"
+                      title="Introduce un número de teléfono válido.">
+                  </div>
+
+                  <div class="col-12">
+                    <label for="mensaje" class="form-label">Mensaje</label>
+                    <textarea class="form-control" id="mensaje" name="message"
+                      rows="5" minlength="10" maxlength="2000"
+                      placeholder="Cuéntame en qué puedo ayudarte..."
+                      required></textarea>
+                  </div>
+                </div>
+
+                <button class="btn-send" id="sendButton" type="submit">
+                  <i class="fa-regular fa-paper-plane" aria-hidden="true"></i>
+                  Enviar mensaje
+                </button>
+
+                <p id="form-status" role="status" aria-live="polite"></p>
+              </form>
+
+              <p class="text-muted-custom text-center small mt-3 mb-0">
+                El envío real requiere configurar las credenciales de EmailJS
+                indicadas en el código JavaScript.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <div class="container text-center">
+      <a class="navbar-brand" href="#inicio">MG_DEV</a>
+      <p class="text-muted-custom mt-2 mb-0">
+        Aprendiendo, creando e innovando con tecnología.
+      </p>
+
+      <!--
+        IMPORTANTE:
+        Reemplaza los enlaces de ejemplo por las cuentas reales de Mirkeila.
+        No publiques enlaces de otras personas como si fueran los suyos.
+      -->
+      <div class="social-links" aria-label="Redes sociales">
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+        </a>
+        <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <i class="fa-brands fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+        </a>
+        <a href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X, antes Twitter">
+          <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <a href="#inicio" class="back-top">
+        <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+        Volver arriba
+      </a>
+
+      <p class="copyright">
+        © <span id="currentYear"></span> Mirkeila Gomez. Proyecto académico de portafolio web.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ==============================================
+    // 1. MODO OSCURO / CLARO
+    // ==============================================
+    const themeToggle = document.getElementById("themeToggle");
+    const themeText = document.getElementById("themeText");
+    const themeIcon = themeToggle.querySelector("i");
+
+    function applyTheme(theme) {
+      const isLight = theme === "light";
+
+      document.body.classList.toggle("light-theme", isLight);
+      themeText.textContent = isLight ? "Modo oscuro" : "Modo claro";
+      themeIcon.className = isLight
+        ? "fa-solid fa-moon"
+        : "fa-solid fa-sun";
+
+      themeToggle.setAttribute(
+        "aria-label",
+        isLight ? "Activar modo oscuro" : "Activar modo claro"
+      );
+
+      drawMatrixColor();
+    }
+
+    let savedTheme = "dark";
+
+    try {
+      savedTheme = localStorage.getItem("mirkeila-theme") || "dark";
+    } catch (error) {
+      savedTheme = "dark";
+    }
+
+    applyTheme(savedTheme);
+
+    themeToggle.addEventListener("click", () => {
+      const nextTheme = document.body.classList.contains("light-theme")
+        ? "dark"
+        : "light";
+
+      applyTheme(nextTheme);
+
+      try {
+        localStorage.setItem("mirkeila-theme", nextTheme);
+      } catch (error) {
+        // El tema sigue funcionando aunque el navegador bloquee el almacenamiento.
+      }
+    });
+
+    // ==============================================
+    // 2. FILTRO DINÁMICO DE PROYECTOS
+    // ==============================================
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const projectItems = document.querySelectorAll(".project-item");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+
+        filterButtons.forEach((item) => {
+          const active = item === button;
+          item.classList.toggle("active", active);
+          item.setAttribute("aria-pressed", String(active));
+        });
+
+        projectItems.forEach((project) => {
+          const matches =
+            filter === "todos" || project.dataset.category === filter;
+
+          project.hidden = !matches;
+        });
+      });
+    });
+
+    // Cerrar el menú móvil al seleccionar una sección.
+    document.querySelectorAll("#menuPrincipal .nav-link").forEach((link) => {
+      link.addEventListener("click", () => {
+        const menu = document.getElementById("menuPrincipal");
+
+        if (menu.classList.contains("show")) {
+          bootstrap.Collapse.getOrCreateInstance(menu).hide();
+        }
+      });
+    });
+
+    // Año automático en el pie de página.
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
+
+    // ==============================================
+    // 3. ANIMACIÓN MATRIX CON CANVAS
+    // ==============================================
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
+    const characters =
+      "アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    let fontSize = 15;
+    let columns = 0;
+    let drops = [];
+    let matrixFrame = 0;
+    let matrixColor = "#39ff88";
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    function drawMatrixColor() {
+      matrixColor = document.body.classList.contains("light-theme")
+        ? "#087f43"
+        : "#39ff88";
+    }
+
+    function resizeMatrix() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      columns = Math.ceil(window.innerWidth / fontSize);
+      drops = Array.from(
+        { length: columns },
+        () => Math.random() * -80
+      );
+    }
+
+    function drawMatrix() {
+      ctx.fillStyle = document.body.classList.contains("light-theme")
+        ? "rgba(244, 247, 245, 0.10)"
+        : "rgba(7, 17, 13, 0.10)";
+
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+      ctx.fillStyle = matrixColor;
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const character = characters.charAt(
+          Math.floor(Math.random() * characters.length)
+        );
+
+        ctx.fillText(character, i * fontSize, drops[i] * fontSize);
+
+        if (
+          drops[i] * fontSize > window.innerHeight &&
+          Math.random() > 0.975
+        ) {
+          drops[i] = 0;
+        }
+
+        drops[i] += 0.45;
+      }
+    }
+
+    function animateMatrix() {
+      if (document.hidden || reducedMotion.matches) {
+        return;
+      }
+
+      matrixFrame++;
+      if (matrixFrame % 2 === 0) {
+        drawMatrix();
+      }
+
+      requestAnimationFrame(animateMatrix);
+    }
+
+    resizeMatrix();
+    drawMatrixColor();
+    drawMatrix();
+
+    if (!reducedMotion.matches) {
+      requestAnimationFrame(animateMatrix);
+    }
+
+    window.addEventListener("resize", () => {
+      resizeMatrix();
+      drawMatrix();
+
+      if (!reducedMotion.matches && !document.hidden) {
+        requestAnimationFrame(animateMatrix);
+      }
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden && !reducedMotion.matches) {
+        requestAnimationFrame(animateMatrix);
+      }
+    });
+
+    reducedMotion.addEventListener("change", () => {
+      if (reducedMotion.matches) {
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      } else {
+        resizeMatrix();
+        requestAnimationFrame(animateMatrix);
+      }
+    });
+
+    // ==============================================
+    // 4. FORMULARIO DE CONTACTO CON EMAILJS
+    // ==============================================
+    // Para activarlo:
+    // A. Crea una cuenta en https://www.emailjs.com/
+    // B. Configura un servicio de correo y una plantilla.
+    // C. Copia tu Public Key, Service ID y Template ID.
+    // D. Sustituye los tres valores de configuración de abajo.
+    //
+    // La plantilla de EmailJS debe usar variables compatibles con:
+    // {{from_name}}, {{reply_to}}, {{phone}}, {{message}}
+    //
+    // No pongas contraseñas privadas en este archivo público.
+
+    const EMAILJS_PUBLIC_KEY = "TU_PUBLIC_KEY";
+    const EMAILJS_SERVICE_ID = "TU_SERVICE_ID";
+    const EMAILJS_TEMPLATE_ID = "TU_TEMPLATE_ID";
+
+    const contactForm = document.getElementById("contactForm");
+    const sendButton = document.getElementById("sendButton");
+    const formStatus = document.getElementById("form-status");
+
+    const emailConfigured =
+      EMAILJS_PUBLIC_KEY !== "TU_PUBLIC_KEY" &&
+      EMAILJS_SERVICE_ID !== "TU_SERVICE_ID" &&
+      EMAILJS_TEMPLATE_ID !== "TU_TEMPLATE_ID";
+
+    if (emailConfigured && window.emailjs) {
+      emailjs.init({
+        publicKey: EMAILJS_PUBLIC_KEY
+      });
+    }
+
+    contactForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (!contactForm.checkValidity()) {
+        contactForm.reportValidity();
+        return;
+      }
+
+      if (!emailConfigured || !window.emailjs) {
+        formStatus.style.color = "#e5a000";
+        formStatus.textContent =
+          "El formulario todavía no está conectado a EmailJS. Completa su configuración para enviar mensajes.";
+        return;
+      }
+
+      sendButton.disabled = true;
+      sendButton.innerHTML =
+        '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Enviando...';
+
+      formStatus.textContent = "";
+
+      try {
+        await emailjs.sendForm(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          contactForm
+        );
+
+        formStatus.style.color = "#20b866";
+        formStatus.textContent = "■ Mensaje enviado correctamente";
+        contactForm.reset();
+      } catch (error) {
+        console.error("Error al enviar el formulario:", error);
+        formStatus.style.color = "#e05252";
+        formStatus.textContent =
+          "No se pudo enviar el mensaje. Revisa la configuración de EmailJS e inténtalo de nuevo.";
+      } finally {
+        sendButton.disabled = false;
+        sendButton.innerHTML =
+          '<i class="fa-regular fa-paper-plane" aria-hidden="true"></i> Enviar mensaje';
+      }
+    });
+  </script>
+</body>
+</html>
